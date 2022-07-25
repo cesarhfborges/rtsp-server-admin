@@ -1,0 +1,148 @@
+<form [formGroup]="form">
+  <p-card header="Parametros">
+
+    <div class="row">
+      <div class="col-12 field grid">
+        <label class="col-5">Protocolo padrão:</label>
+        <div class="col">
+          <p-dropdown [options]="transportOptions" formControlName="transport" optionLabel="label" optionValue="value"></p-dropdown>
+        </div>
+      </div>
+
+      <div class="col-12 field grid">
+        <label class="col-5">Encerrar todas as intâncias do FFmpeg on reinício:</label>
+        <div class="col">
+          <p-inputSwitch formControlName="killFFmpegOnRestart"></p-inputSwitch>
+        </div>
+      </div>
+
+      <label class="col-12">RTSP FFmpeg:</label>
+
+      <div class="table-responsive">
+        <p-table formArrayName="rtspParams" [value]="rtspParams.controls" dataKey="key">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Parâmetro</th>
+              <th>Valor</th>
+              <th>Status</th>
+              <th style="width: 160px;">&nbsp;</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-controls let-i="rowIndex" let-editing="editing" let-ri="rowIndex">
+            <tr [formGroupName]="i" [pEditableRow]="i">
+              <td>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input pInputText type="text" formControlName="key">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{controls.get('key').value}}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              <td>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input pInputText type="text" formControlName="value">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{controls.get('value').value}}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              <td>
+                {{controls.get('active').value ? 'On' : 'Off'}}
+              </td>
+              <td style="text-align:center">
+                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" class="p-button-rounded p-button-text"></button>
+                <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" class="p-button-rounded p-button-text p-button-danger"></button>
+              </td>
+<!--              <td><input type="text" formControlName="name" class="form-control" /></td>-->
+<!--              <td> <input type="email" formControlName="email" class="form-control" />-->
+<!--                <span style="color:red" *ngIf="userDetailsControls(i)?.email.errors?.required">Email is Required</span>-->
+<!--                <span style="color:red" *ngIf="userDetailsControls(i)?.email.errors?.email">Please provide a valid-->
+<!--                  email</span>-->
+<!--              </td>-->
+<!--              <td>-->
+<!--                <p-dropdown [options]="genderOptions" formControlName="gender"></p-dropdown>-->
+<!--              </td>-->
+<!--              <td>-->
+<!--                <p-calendar appendTo="body" formControlName="dob" dateFormat="dd/mm/yy" showIcon="true"-->
+<!--                            showButtonBar="true" [maxDate]="maxDateValue"></p-calendar>-->
+<!--              </td>-->
+            </tr>
+
+          </ng-template>
+        </p-table>
+<!--        <table class="table" formArrayName="rtspParams">-->
+<!--          <thead>-->
+<!--          <tr>-->
+<!--            <th scope="col">Parâmetro</th>-->
+<!--            <th scope="col">Valor</th>-->
+<!--            <th scope="col" style="min-width: 150px;">Status</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr *ngFor="let i of [0,1,2,3,4,5]">-->
+<!--            <td>-rtsp_transport</td>-->
+<!--            <td>udp</td>-->
+<!--            <td>-->
+<!--              <p-selectButton-->
+<!--                [options]="[{label: 'On', value: true}, {label: 'Off', value: false}]"-->
+<!--              ></p-selectButton>-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+      </div>
+
+<!--      {{rtspParams.controls}}-->
+<!--      {{rtspParamsArray|json}}-->
+
+      <label class="col-12">Codificação FFmpeg:</label>
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Parâmetro</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let i of [0,1,2,3,4,5]">
+          <td>-rtsp_transport</td>
+          <td>udp</td>
+          <td>
+            <p-selectButton
+              [options]="[{label: 'On', value: true}, {label: 'Off', value: false}]"
+            ></p-selectButton>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+
+
+<!--    <div class="grid">-->
+<!--      <div class="col-6">-->
+<!--        <label for="firstname3" class="col-fixed" style="width:100px">Firstname</label>-->
+<!--      </div>-->
+<!--      <div class="col-6">-->
+<!--        <p-dropdown id="transport" [options]="transportOptions" optionLabel="label" optionValue="value"></p-dropdown>-->
+<!--      </div>-->
+<!--      <div class="col-6">3</div>-->
+<!--    </div>-->
+
+<!--    <div class="field grid">-->
+<!--      <label for="transport" class="col-fixed" style="width:100px">Lastname</label>-->
+<!--      <div class="col">-->
+
+<!--      </div>-->
+<!--    </div>-->
+
+  </p-card>
+</form>
